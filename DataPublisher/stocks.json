@@ -1,0 +1,14 @@
+[
+  {
+    "StockName": "AAPL",
+    "MarketName": "NASDAQ",
+    "FromDate": "2024-08-30T00:00:00Z",
+    "ToDate": "2024-08-31T00:00:00Z"
+  },
+  {
+    "StockName": "GOOGL",
+    "MarketName": "NASDAQ",
+    "FromDate": "2024-08-30T00:00:00Z",
+    "ToDate": "2024-08-31T00:00:00Z"
+  }
+]

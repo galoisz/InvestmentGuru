@@ -1,0 +1,49 @@
+# Build Folders
+bin/
+obj/
+
+# User-specific Files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Auto-generated files (from tools like dotnet watch)
+*.dbmdl
+*.jfm
+
+# Entity Framework
+*.jfm
+*.pdb
+
+# Azure Pipelines
+.vsts-pipelines.yml
+.azure-pipelines.yml
+.vsts-ci.yml
+
+# Visual Studio Code
+.vscode/
+.vscode/**/launch.json
+.vscode/**/tasks.json
+.vscode/**/extensions.json
+.vscode/**/settings.json
+
+# Visual Studio Files
+.vs/
+*.VC.db
+.vscode/*.code-workspace
+
+# Windows specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# MacOS specific files
+.DS_Store
+.AppleDouble
+.LSOverride
