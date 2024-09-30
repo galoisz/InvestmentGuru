@@ -1,5 +1,7 @@
 version: '3.4'
 
+name: guroo
+
 services:
   webapi:
     image: ${DOCKER_REGISTRY-}webapi
@@ -9,7 +11,7 @@ services:
 
   postgres:
     image: postgres:15-alpine
- 
+
   rabbitmq:
     image: rabbitmq:3.13-management
 

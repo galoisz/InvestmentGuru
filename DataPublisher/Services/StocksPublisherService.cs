@@ -29,7 +29,7 @@ public class StocksPublisherService : IStocksPublisherService
                 );
 
 
-            foreach (var stockEntity in _stockService.GetStockData())
+            foreach (var stockEntity in await _stockService.GetStockData())
             {
                 var routingKey = stockEntity.MarketName;
                 var message = JsonSerializer.Serialize(stockEntity);
