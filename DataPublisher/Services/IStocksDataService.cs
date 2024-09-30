@@ -9,5 +9,5 @@ namespace DataPublisher.Services;
 
 public interface IStocksDataService
 {
-    IEnumerable<StockEntry> GetStockData();
+    Task<IEnumerable<StockEntry>> GetStockData();
 }
