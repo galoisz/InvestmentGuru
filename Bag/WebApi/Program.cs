@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
 using WebApi.Data.Repositories;
+using WebApi.Helpers.Finance;
 using WebApi.Services;
+using WebApi.Services.Finance;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("StocksConnection")));
 
+builder.Services.Configure<FinanceApiOptions>(builder.Configuration.GetSection("FinanceApi"));
 
+// Register the finance service
+builder.Services.AddScoped<IFinanceService, FinanceService>();
 builder.Services.AddScoped<IDataRepository, DataRepository>();
 builder.Services.AddScoped<IStockDataService, StockDataService>();
 
