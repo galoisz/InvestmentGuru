@@ -11,10 +11,9 @@ namespace StocksLibrary.Helpers;
 public static class ApplicationServiceExtensions
 {
     public static void AddServices(this IServiceCollection services, IConfiguration config) {
-        services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(config.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(config.GetConnectionString("StocksConnection")));
         services.AddScoped<IStockRepository, StockRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(typeof(CreateStockCommandHandler).Assembly);
