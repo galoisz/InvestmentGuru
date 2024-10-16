@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StockLibrary.CQRS.Commands;
+using StockLibrary.CQRS.Queries;
 using StockLibrary.Data;
 using StockLibrary.Data.Repositories;
 using StockLibrary.Data.UnitOfWork;
@@ -17,6 +18,7 @@ public static class ApplicationServiceExtensions
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(typeof(CreateStockCommandHandler).Assembly);
+            config.RegisterServicesFromAssembly(typeof(GetStockQueryHandler).Assembly);
         });
     }
 }
