@@ -8,7 +8,7 @@ namespace DataConsumer.Models;
 
 public class StockEntry
 {
-    public string StockName { get; set; }
+    public string Symbol { get; set; }
     public string MarketName { get; set; }
     public DateTime FromDate { get; set; }
     public DateTime ToDate { get; set; }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DataConsumer.Services.StockDataConsumer;
+using DataConsumer.Services.StockPrices;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using StocksDataConsumer.Services;
@@ -20,12 +22,12 @@ public class Program
             .AddSingleton<IConnectionFactory, ConnectionFactory>(sp => new ConnectionFactory() { HostName = "localhost" })
 
             .AddSingleton<IStocksDataConsumerService, StocksDataConsumerService>()
+            .AddSingleton<IStockPriceService, StockPriceService>()
             .BuildServiceProvider();
 
         // Resolve and run the publisher
         var publisher = serviceProvider.GetService<IStocksDataConsumerService>();
         await publisher.StartListening();
-
 
         await Task.Delay(-1); // Task.Delay(-1) effectively runs forever
 

@@ -1,8 +1,11 @@
 ﻿using DataConsumer.Models;
+using DataConsumer.Services.StockDataConsumer;
+using DataConsumer.Services.StockPrices;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
-using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Channels;
 
 namespace StocksDataConsumer.Services;
@@ -11,9 +14,11 @@ public class StocksDataConsumerService : IStocksDataConsumerService
 {
     private readonly IConnection _connection;
     private readonly IModel _channel;
-
-    public StocksDataConsumerService(IConnectionFactory connectionFactory)
+     
+    private readonly IStockPriceService _stockPriceService;
+    public StocksDataConsumerService(IConnectionFactory connectionFactory, IStockPriceService stockPriceService)
     {
+        _stockPriceService = stockPriceService;
         _connection = connectionFactory.CreateConnection();
         _channel = _connection.CreateModel();
 
@@ -43,14 +48,17 @@ public class StocksDataConsumerService : IStocksDataConsumerService
 
 
         var consumer = new EventingBasicConsumer(_channel);
-        consumer.Received += (model, ea) =>
+        consumer.Received += async (model, ea) =>
         {
             var body = ea.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
-            var stockEntity = JsonSerializer.Deserialize<StockEntry>(message);
-
             Console.WriteLine(" [x] Received '{0}':'{1}'", ea.RoutingKey, message);
 
+            var stockEntity = JsonConvert.DeserializeObject<StockEntry>(message);
+
+            var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(2024, 1, 1), DateTime.Now);
+
+            Console.WriteLine(JsonConvert.SerializeObject(prices));        
             // Perform some operation
             // For example: Console.WriteLine("Processing stock: {0}", stockEntity.StockName);
 
