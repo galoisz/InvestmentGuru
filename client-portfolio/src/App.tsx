@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import ContactForm from "./components/ContactForm";
+import Home from "./trial/pages/Home";
+import About from "./trial/pages/About";
+import ContactForm from "./trial/components/ContactForm";
 
 const App: React.FC = () => (
   <>
