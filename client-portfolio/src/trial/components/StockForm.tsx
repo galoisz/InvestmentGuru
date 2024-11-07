@@ -44,6 +44,15 @@ const StockForm: React.FC = () => {
       const newStocks = [...stocks, { name: values.name, ratio: values.ratio }];
       const totalRatio = newStocks.reduce((acc, stock) => acc + stock.ratio, 0);
 
+      // Check for unique stock name
+      const isDuplicateName = stocks.some(
+        (stock) => stock.name.toLowerCase() === values.name.toLowerCase()
+      );
+      if (isDuplicateName) {
+        setRatioError("Stock name must be unique.");
+        return;
+      }
+
       // Check if total ratio exceeds 100%
       if (totalRatio > 100) {
         setRatioError(
