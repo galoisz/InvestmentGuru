@@ -13,6 +13,7 @@ import {
   Paper,
   Typography,
   FormHelperText,
+  Autocomplete,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -21,6 +22,9 @@ interface Stock {
   name: string;
   ratio: number;
 }
+
+// Define the array of stock names for autocomplete suggestions
+const stockNames = ["Apple", "Microsoft", "Amazon", "Google", "Tesla"];
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Stock name is required"),
@@ -74,15 +78,23 @@ const StockForm: React.FC = () => {
         Add Stock
       </Typography>
       <form onSubmit={formik.handleSubmit}>
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Stock Name"
-          name="name"
+        <Autocomplete
+          freeSolo
+          options={stockNames}
           value={formik.values.name}
-          onChange={formik.handleChange}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
+          onChange={(event, newValue) => formik.setFieldValue("name", newValue)}
+          onInputChange={(event, newValue) => formik.setFieldValue("name", newValue)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              fullWidth
+              margin="normal"
+              label="Stock Name"
+              name="name"
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+          )}
         />
         <TextField
           fullWidth
