@@ -17,14 +17,13 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+  import { observer } from "mobx-react-lite";
+import portfolioStore from "../stores/portfolioStore";
 
 interface Stock {
   name: string;
   ratio: number;
 }
-
-// Define the array of stock names for autocomplete suggestions
-const stockNames = ["Apple", "Microsoft", "Amazon", "Google", "Tesla"];
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Stock name is required"),
@@ -34,7 +33,7 @@ const validationSchema = Yup.object({
     .max(100, "Ratio must be less than or equal to 100"),
 });
 
-const StockForm: React.FC = () => {
+const StockForm: React.FC = observer(() => {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [ratioError, setRatioError] = useState<string | null>(null);
 
@@ -48,7 +47,6 @@ const StockForm: React.FC = () => {
       const newStocks = [...stocks, { name: values.name, ratio: values.ratio }];
       const totalRatio = newStocks.reduce((acc, stock) => acc + stock.ratio, 0);
 
-      // Check for unique stock name
       const isDuplicateName = stocks.some(
         (stock) => stock.name.toLowerCase() === values.name.toLowerCase()
       );
@@ -57,15 +55,12 @@ const StockForm: React.FC = () => {
         return;
       }
 
-      // Check if total ratio exceeds 100%
       if (totalRatio > 100) {
-        setRatioError(
-          "Total ratios cannot exceed 100%. Please adjust the values."
-        );
+        setRatioError("Total ratios cannot exceed 100%. Please adjust the values.");
       } else {
         setStocks(newStocks);
         resetForm();
-        setRatioError(null); // Clear any existing error when the form is valid
+        setRatioError(null);
       }
     },
   });
@@ -80,7 +75,7 @@ const StockForm: React.FC = () => {
       <form onSubmit={formik.handleSubmit}>
         <Autocomplete
           freeSolo
-          options={stockNames}
+          options={portfolioStore.stockNames} // Use stock names from the store
           value={formik.values.name}
           onChange={(event, newValue) => formik.setFieldValue("name", newValue)}
           onInputChange={(event, newValue) => formik.setFieldValue("name", newValue)}
@@ -147,6 +142,6 @@ const StockForm: React.FC = () => {
       </TableContainer>
     </Box>
   );
-};
+});
 
 export default StockForm;

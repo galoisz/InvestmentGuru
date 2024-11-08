@@ -1,7 +1,9 @@
-import { makeAutoObservable } from 'mobx';
+// src/stores/PortfolioStore.ts
+import { makeAutoObservable } from "mobx";
 
 class PortfolioStore {
-  title = 'My Portfolio';
+  title = "My Portfolio";
+  stockNames = ["Apple", "Microsoft", "Amazon", "Google", "Tesla"];
 
   constructor() {
     makeAutoObservable(this);
