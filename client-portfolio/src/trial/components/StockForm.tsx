@@ -14,11 +14,14 @@ import {
   Typography,
   FormHelperText,
   Autocomplete,
+  IconButton,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-  import { observer } from "mobx-react-lite";
-import portfolioStore from "../stores/portfolioStore";
+import { observer } from "mobx-react-lite";
+import portfolioStore from "../stores/PortfolioStore";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Stock {
   name: string;
@@ -36,6 +39,7 @@ const validationSchema = Yup.object({
 const StockForm: React.FC = observer(() => {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [ratioError, setRatioError] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState<number | null>(null); // Track index of stock being edited
 
   const formik = useFormik({
     initialValues: {
@@ -44,38 +48,69 @@ const StockForm: React.FC = observer(() => {
     },
     validationSchema,
     onSubmit: (values, { resetForm }) => {
-      const newStocks = [...stocks, { name: values.name, ratio: values.ratio }];
-      const totalRatio = newStocks.reduce((acc, stock) => acc + stock.ratio, 0);
+      if (isEditing !== null) {
+        // Editing an existing stock
+        const updatedStocks = [...stocks];
+        updatedStocks[isEditing] = { name: values.name, ratio: values.ratio };
+        const totalRatio = updatedStocks.reduce((acc, stock) => acc + stock.ratio, 0);
 
-      const isDuplicateName = stocks.some(
-        (stock) => stock.name.toLowerCase() === values.name.toLowerCase()
-      );
-      if (isDuplicateName) {
-        setRatioError("Stock name must be unique.");
-        return;
-      }
-
-      if (totalRatio > 100) {
-        setRatioError("Total ratios cannot exceed 100%. Please adjust the values.");
+        if (totalRatio > 100) {
+          setRatioError("Total ratios cannot exceed 100%. Please adjust the values.");
+        } else {
+          setStocks(updatedStocks);
+          resetForm();
+          setIsEditing(null);
+          setRatioError(null);
+        }
       } else {
-        setStocks(newStocks);
-        resetForm();
-        setRatioError(null);
+        // Adding a new stock
+        const newStocks = [...stocks, { name: values.name, ratio: values.ratio }];
+        const totalRatio = newStocks.reduce((acc, stock) => acc + stock.ratio, 0);
+
+        const isDuplicateName = stocks.some(
+          (stock) => stock.name.toLowerCase() === values.name.toLowerCase()
+        );
+        if (isDuplicateName) {
+          setRatioError("Stock name must be unique.");
+          return;
+        }
+
+        if (totalRatio > 100) {
+          setRatioError("Total ratios cannot exceed 100%. Please adjust the values.");
+        } else {
+          setStocks(newStocks);
+          resetForm();
+          setRatioError(null);
+        }
       }
     },
   });
+
+  const handleRemove = (index: number) => {
+    const updatedStocks = stocks.filter((_, i) => i !== index);
+    setStocks(updatedStocks);
+  };
+
+  const handleEdit = (index: number) => {
+    const stockToEdit = stocks[index];
+    formik.setValues({
+      name: stockToEdit.name,
+      ratio: stockToEdit.ratio,
+    });
+    setIsEditing(index); // Set the index of the stock being edited
+  };
 
   const totalRatio = stocks.reduce((acc, stock) => acc + stock.ratio, 0);
 
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
-        Add Stock
+        {isEditing !== null ? "Edit Stock" : "Add Stock"}
       </Typography>
       <form onSubmit={formik.handleSubmit}>
         <Autocomplete
           freeSolo
-          options={portfolioStore.stockNames} // Use stock names from the store
+          options={portfolioStore.stockNames}
           value={formik.values.name}
           onChange={(event, newValue) => formik.setFieldValue("name", newValue)}
           onInputChange={(event, newValue) => formik.setFieldValue("name", newValue)}
@@ -88,6 +123,7 @@ const StockForm: React.FC = observer(() => {
               name="name"
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}
+              disabled={isEditing !== null} // Disable name editing in edit mode
             />
           )}
         />
@@ -106,10 +142,10 @@ const StockForm: React.FC = observer(() => {
           type="submit"
           variant="contained"
           color="primary"
-          disabled={totalRatio >= 100}
+          disabled={totalRatio >= 100 && isEditing === null} // Disable only when adding new stocks
           sx={{ mt: 2 }}
         >
-          Add Stock
+          {isEditing !== null ? "Update Stock" : "Add Stock"}
         </Button>
         {ratioError && (
           <FormHelperText error sx={{ mt: 1 }}>
@@ -128,6 +164,7 @@ const StockForm: React.FC = observer(() => {
             <TableRow>
               <TableCell>Stock Name</TableCell>
               <TableCell>Ratio (%)</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -135,6 +172,14 @@ const StockForm: React.FC = observer(() => {
               <TableRow key={index}>
                 <TableCell>{stock.name}</TableCell>
                 <TableCell>{stock.ratio}</TableCell>
+                <TableCell>
+                  <IconButton onClick={() => handleEdit(index)} color="primary">
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleRemove(index)} color="secondary">
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
