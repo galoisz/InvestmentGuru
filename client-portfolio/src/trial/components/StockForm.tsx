@@ -44,16 +44,21 @@ const StockForm: React.FC = observer(() => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      ratio: 0,
+      ratio: "", // Set ratio to an empty string
     },
     validationSchema,
     onSubmit: (values, { resetForm }) => {
+      const parsedValues = {
+        ...values,
+        ratio: Number(values.ratio), // Ensure the ratio is converted to a number
+      };
+  
       if (isEditing !== null) {
         // Editing an existing stock
         const updatedStocks = [...stocks];
-        updatedStocks[isEditing] = { name: values.name, ratio: values.ratio };
+        updatedStocks[isEditing] = { name: parsedValues.name, ratio: parsedValues.ratio };
         const totalRatio = updatedStocks.reduce((acc, stock) => acc + stock.ratio, 0);
-
+  
         if (totalRatio > 100) {
           setRatioError("Total ratios cannot exceed 100%. Please adjust the values.");
         } else {
@@ -64,9 +69,9 @@ const StockForm: React.FC = observer(() => {
         }
       } else {
         // Adding a new stock
-        const newStocks = [...stocks, { name: values.name, ratio: values.ratio }];
+        const newStocks = [...stocks, { name: parsedValues.name, ratio: parsedValues.ratio }];
         const totalRatio = newStocks.reduce((acc, stock) => acc + stock.ratio, 0);
-
+  
         const isDuplicateName = stocks.some(
           (stock) => stock.name.toLowerCase() === values.name.toLowerCase()
         );
@@ -74,7 +79,7 @@ const StockForm: React.FC = observer(() => {
           setRatioError("Stock name must be unique.");
           return;
         }
-
+  
         if (totalRatio > 100) {
           setRatioError("Total ratios cannot exceed 100%. Please adjust the values.");
         } else {
@@ -85,7 +90,7 @@ const StockForm: React.FC = observer(() => {
       }
     },
   });
-
+  
   const handleRemove = (index: number) => {
     const updatedStocks = stocks.filter((_, i) => i !== index);
     setStocks(updatedStocks);
