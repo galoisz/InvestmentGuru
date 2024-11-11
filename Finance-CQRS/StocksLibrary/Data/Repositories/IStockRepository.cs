@@ -1,4 +1,5 @@
-﻿using StockLibrary.Data.Entities;
+﻿
+using DbModels.Entities;
 
 namespace StockLibrary.Data.Repositories;
 

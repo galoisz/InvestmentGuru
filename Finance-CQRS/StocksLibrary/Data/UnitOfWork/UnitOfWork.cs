@@ -1,4 +1,5 @@
-﻿using StockLibrary.Data.Repositories;
+﻿using DbModels;
+using StockLibrary.Data.Repositories;
 
 namespace StockLibrary.Data.UnitOfWork;
 

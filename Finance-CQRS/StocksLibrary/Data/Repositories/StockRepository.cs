@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using StockLibrary.Data.Entities;
+﻿using DbModels;
+using DbModels.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace StockLibrary.Data.Repositories;
 
