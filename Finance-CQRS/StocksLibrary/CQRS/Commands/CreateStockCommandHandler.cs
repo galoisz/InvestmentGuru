@@ -1,8 +1,7 @@
-﻿using MediatR;
+﻿using DbModels.Entities;
+using MediatR;
 using Newtonsoft.Json;
-using StockLibrary.Data.Entities;
 using StockLibrary.Data.UnitOfWork;
-using StockLibrary.Models;
 
 namespace StockLibrary.CQRS.Commands;
 

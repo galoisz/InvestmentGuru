@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using StockLibrary.Data.Entities;
+﻿using DbModels.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace StockLibrary.Data;
+namespace DbModels;
 
 public class ApplicationDbContext : DbContext
 {

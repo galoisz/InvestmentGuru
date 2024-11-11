@@ -1,77 +1,87 @@
 ﻿using DataConsumer.Models;
 using DataConsumer.Services.StockDataConsumer;
 using DataConsumer.Services.StockPrices;
+using MediatR;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using StockLibrary.CQRS.Commands;
+using StockLibrary.Models;
 using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Channels;
 
 namespace StocksDataConsumer.Services;
 
 public class StocksDataConsumerService : IStocksDataConsumerService
 {
-    private readonly IConnection _connection;
-    private readonly IModel _channel;
-     
     private readonly IStockPriceService _stockPriceService;
-    public StocksDataConsumerService(IConnectionFactory connectionFactory, IStockPriceService stockPriceService)
+    private readonly IMediator _mediator;
+
+    public StocksDataConsumerService(IStockPriceService stockPriceService, IMediator mediator)
     {
         _stockPriceService = stockPriceService;
-        _connection = connectionFactory.CreateConnection();
-        _channel = _connection.CreateModel();
-
-        _channel.ExchangeDeclare(
-            exchange: "stock_exchange", 
-            type: ExchangeType.Direct,
-            durable: true);
+        _mediator = mediator;
     }
 
     public async Task StartListening()
     {
-        var queueName = "NASDAQ";//_channel.QueueDeclare().QueueName;
-                                 //_channel.QueueDeclare( durable: true, exclusive: false, autoDelete: false, arguments: null);
 
-        //_channel.QueueBind(queue: queueName,
-        //                   exchange: "stock_exchange",
-        //                   routingKey: "NASDAQ");
+        var factory = new ConnectionFactory { HostName = "localhost" };
+        using var connection = await factory.CreateConnectionAsync();
+        using var channel = await connection.CreateChannelAsync();
 
-
-       _channel.QueueDeclare(queue: queueName,
-                        durable: true, // Queue is durable
-                        exclusive: false,
-                        autoDelete: false,
-        arguments: null);
-
-        _channel.QueueBind(queue: queueName, exchange: "stock_exchange", routingKey: queueName);
+        await channel.ExchangeDeclareAsync(
+            exchange: "stock_exchange",
+            type: ExchangeType.Direct,
+            durable: true);
 
 
-        var consumer = new EventingBasicConsumer(_channel);
-        consumer.Received += async (model, ea) =>
+        var queueName = "NASDAQ";
+
+        await channel.QueueDeclareAsync(queue: queueName,
+                              durable: true,
+                              exclusive: false,
+                              autoDelete: false,
+                              arguments: null);
+
+        await channel.QueueBindAsync (queue: queueName, exchange: "stock_exchange", routingKey: queueName);
+
+        var consumer = new AsyncEventingBasicConsumer(channel);
+        consumer.ReceivedAsync += async (model, ea) =>
         {
-            var body = ea.Body.ToArray();
-            var message = Encoding.UTF8.GetString(body);
-            Console.WriteLine(" [x] Received '{0}':'{1}'", ea.RoutingKey, message);
 
-            var stockEntity = JsonConvert.DeserializeObject<StockEntry>(message);
+            try
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine(" [x] Received '{0}':'{1}'", ea.RoutingKey, message);
 
-            var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(2024, 1, 1), DateTime.Now);
+                var stockEntity = JsonConvert.DeserializeObject<DataConsumer.Models.StockEntry>(message);
 
-            Console.WriteLine(JsonConvert.SerializeObject(prices));        
-            // Perform some operation
-            // For example: Console.WriteLine("Processing stock: {0}", stockEntity.StockName);
+                var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(2024, 1, 1), DateTime.Now);
+                var command = new CreateStockCommand
+                {
+                    Symbol = stockEntity.Symbol,
+                    Prices = prices.Select(x => new PriceEntry { Open = Convert.ToDecimal(x.Open), High = Convert.ToDecimal(x.High), Close = Convert.ToDecimal(x.Close), Low = Convert.ToDecimal(x.Low), Date = x.Date.ToString("yyyy-MM-dd") , Volume = Convert.ToInt64(x.Volume) }).ToList()
+                };
 
-            // Acknowledge the message
-            _channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+                await _mediator.Send(command);
+
+                Console.WriteLine(JsonConvert.SerializeObject(prices));
+
+                // Acknowledge the message
+                await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex); 
+            }
         };
 
-        _channel.BasicConsume(queue: queueName,
-                              autoAck: false,
-                              consumer: consumer);
+        await channel.BasicConsumeAsync(queue: queueName, autoAck: false, consumer: consumer);
 
         Console.WriteLine("Press [enter] to exit.");
         Console.ReadLine();
-
     }
 }
