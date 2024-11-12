@@ -21,7 +21,7 @@
 
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\DbModels\DbModels.csproj" />
+	  <ProjectReference Include="..\DbModels\DbModels.csproj" />
 	</ItemGroup>
 
 </Project>
