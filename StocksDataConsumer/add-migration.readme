@@ -1,0 +1,3 @@
+﻿from webpai project run 
+
+ dotnet ef migrations add @migrationName --project ..\DbModels\DbModels.csproj
