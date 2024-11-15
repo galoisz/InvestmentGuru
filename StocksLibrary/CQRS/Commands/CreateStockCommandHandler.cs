@@ -22,7 +22,7 @@ public class CreateStockCommandHandler : IRequestHandler<CreateStockCommand, Uni
         {
             Id = Guid.NewGuid(),
             Symbol = request.Symbol,
-            Prices = JsonConvert.SerializeObject(request.Prices)
+            //Prices = JsonConvert.SerializeObject(request.Prices)
         };
 
         await _unitOfWork.Stocks.AddStockAsync(stock);

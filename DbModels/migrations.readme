@@ -1,0 +1,3 @@
+cghange dir to webApi
+
+dotnet ef migrations add @migrationName  --project ..\DbModels\DbModels.csproj

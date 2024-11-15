@@ -20,7 +20,7 @@ public class GetStockQueryHandler : IRequestHandler<GetStockQuery, StockEntry>
 
         if (stock == null) return null;
 
-        var prices = JsonConvert.DeserializeObject<List<PriceEntry>>(stock.Prices);
+        var prices = new List<PriceEntry>();// JsonConvert.DeserializeObject<List<PriceEntry>>(stock.Prices);
         return new StockEntry { Symbol = stock.Symbol, Prices = prices };
     }
 }
