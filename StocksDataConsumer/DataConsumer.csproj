@@ -23,7 +23,7 @@
 
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Finance-CQRS\StocksLibrary\StocksLibrary.csproj" />
+	  <ProjectReference Include="..\StocksLibrary\StocksLibrary.csproj" />
 	</ItemGroup>
 
 
