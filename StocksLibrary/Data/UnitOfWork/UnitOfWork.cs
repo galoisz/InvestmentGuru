@@ -1,26 +1,32 @@
 ﻿using DbModels;
+using Microsoft.EntityFrameworkCore;
 using StockLibrary.Data.Repositories;
+using StocksLibrary.Data.Repositories;
 
 namespace StockLibrary.Data.UnitOfWork;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly ApplicationDbContext _context;
-    public IStockRepository Stocks { get; }
+    private readonly ApplicationDbContext _dbContext;
 
-    public UnitOfWork(ApplicationDbContext context, IStockRepository stocks)
+    public IStockRepository Stocks { get; }
+    public IPriceRepository Prices { get; }
+
+
+    public UnitOfWork(ApplicationDbContext dbContext, IStockRepository stockRepository, IPriceRepository priceRepository)
     {
-        _context = context;
-        Stocks = stocks;
+        _dbContext = dbContext;
+        Stocks = stockRepository;
+        Prices = priceRepository;
     }
 
-    public async Task<int> CompleteAsync()
+    public async Task CompleteAsync()
     {
-        return await _context.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
     }
 
     public void Dispose()
     {
-        _context.Dispose();
+        _dbContext.Dispose();
     }
 }

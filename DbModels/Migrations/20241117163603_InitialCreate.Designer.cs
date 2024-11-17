@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DbModels.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241115125205_InitialCreate")]
+    [Migration("20241117163603_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -31,14 +31,12 @@ namespace DbModels.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("PriceDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("PriceValue")
-                        .HasColumnType("decimal(10,2)");
-
                     b.Property<Guid>("StockId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

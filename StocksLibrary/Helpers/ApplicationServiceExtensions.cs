@@ -7,6 +7,7 @@ using StockLibrary.CQRS.Queries;
 using StockLibrary.Data;
 using StockLibrary.Data.Repositories;
 using StockLibrary.Data.UnitOfWork;
+using StocksLibrary.Data.Repositories;
 
 namespace StocksLibrary.Helpers;
 
@@ -15,6 +16,7 @@ public static class ApplicationServiceExtensions
     public static void AddServices(this IServiceCollection services, IConfiguration config) {
         services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(config.GetConnectionString("StocksConnection")));
         services.AddScoped<IStockRepository, StockRepository>();
+        services.AddScoped<IPriceRepository, PriceRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddMediatR(config =>
         {

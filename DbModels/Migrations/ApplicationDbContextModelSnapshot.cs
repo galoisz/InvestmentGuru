@@ -28,14 +28,12 @@ namespace DbModels.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("PriceDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("PriceValue")
-                        .HasColumnType("decimal(10,2)");
-
                     b.Property<Guid>("StockId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

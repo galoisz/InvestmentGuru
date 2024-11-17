@@ -57,7 +57,7 @@ public class StocksDataConsumerService : IStocksDataConsumerService
 
                 var stockEntity = JsonConvert.DeserializeObject<DataConsumer.Models.StockEntry>(message);
 
-                var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(2024, 1, 1), DateTime.Now);
+                var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(1980, 1, 1), DateTime.Now);
                 var command = new CreateStockCommand
                 {
                     Symbol = stockEntity.Symbol,

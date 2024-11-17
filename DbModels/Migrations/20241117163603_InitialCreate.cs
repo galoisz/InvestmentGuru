@@ -66,8 +66,7 @@ namespace DbModels.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     StockId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PriceDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PriceValue = table.Column<decimal>(type: "numeric(10,2)", nullable: false)
+                    Value = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
