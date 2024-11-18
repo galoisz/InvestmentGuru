@@ -1,7 +1,6 @@
-﻿using StockLibrary.Data.Repositories;
-using StocksLibrary.Data.Repositories;
+﻿using DbModels.Data.Repositories;
 
-namespace StockLibrary.Data.UnitOfWork;
+namespace DbModels.Data.UnitOfWork;
 public interface IUnitOfWork : IDisposable
 {
     IStockRepository Stocks { get; }

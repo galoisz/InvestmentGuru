@@ -1,7 +1,7 @@
 ﻿using DbModels.Entities;
 using MediatR;
 using Newtonsoft.Json;
-using StockLibrary.Data.UnitOfWork;
+using DbModels.Data.UnitOfWork;
 
 namespace StockLibrary.CQRS.Commands;
 

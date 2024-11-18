@@ -1,14 +1,12 @@
 ﻿using DbModels;
+using DbModels.Data.Repositories;
+using DbModels.Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StockLibrary.CQRS.Commands;
 using StockLibrary.CQRS.Queries;
-using StockLibrary.Data;
-using StockLibrary.Data.Repositories;
-using StockLibrary.Data.UnitOfWork;
-using StocksLibrary.Data.Repositories;
 
 namespace StocksLibrary.Helpers;
 

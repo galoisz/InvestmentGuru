@@ -1,9 +1,6 @@
-﻿using DbModels;
-using Microsoft.EntityFrameworkCore;
-using StockLibrary.Data.Repositories;
-using StocksLibrary.Data.Repositories;
+﻿using DbModels.Data.Repositories;
 
-namespace StockLibrary.Data.UnitOfWork;
+namespace DbModels.Data.UnitOfWork;
 
 public class UnitOfWork : IUnitOfWork
 {

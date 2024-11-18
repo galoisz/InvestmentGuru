@@ -1,6 +1,6 @@
 ﻿using DbModels.Entities;
 
-namespace StocksLibrary.Data.Repositories;
+namespace DbModels.Data.Repositories;
 
 public interface IPriceRepository
 {

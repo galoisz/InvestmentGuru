@@ -1,8 +1,7 @@
-﻿using DbModels;
-using DbModels.Entities;
+﻿using DbModels.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace StockLibrary.Data.Repositories;
+namespace DbModels.Data.Repositories;
 public class StockRepository : IStockRepository
 {
     private readonly ApplicationDbContext _context;

@@ -1,8 +1,7 @@
-﻿using DbModels;
-using DbModels.Entities;
+﻿using DbModels.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace StocksLibrary.Data.Repositories;
+namespace DbModels.Data.Repositories;
 
 public class PriceRepository : IPriceRepository
 {
