@@ -1,6 +1,6 @@
 ﻿using DbModels.Entities;
 
-namespace DbModels.Data.Repositories;
+namespace DbModels.Data.Repositories.Interfaces;
 
 public interface IProtfolioRepository
 {

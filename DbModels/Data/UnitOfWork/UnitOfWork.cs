@@ -1,4 +1,4 @@
-﻿using DbModels.Data.Repositories;
+﻿using DbModels.Data.Repositories.Interfaces;
 
 namespace DbModels.Data.UnitOfWork;
 
@@ -8,6 +8,9 @@ public class UnitOfWork : IUnitOfWork
 
     public IStockRepository Stocks { get; }
     public IPriceRepository Prices { get; }
+    public IProtfolioPeriodRepository ProtfolioPeriodRepository { get; }
+    public IProtfolioRepository ProtfolioRepository { get; }
+    public IProtfolioStockRepository ProtfolioStockRepository { get; }
 
 
     public UnitOfWork(ApplicationDbContext dbContext, IStockRepository stockRepository, IPriceRepository priceRepository)

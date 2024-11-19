@@ -1,10 +1,6 @@
-﻿using DbModels.Entities;
+﻿using DbModels.Data.Repositories.Interfaces;
+using DbModels.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DbModels.Data.Repositories;
 

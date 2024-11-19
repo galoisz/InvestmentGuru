@@ -1,4 +1,5 @@
-﻿using DbModels.Entities;
+﻿using DbModels.Data.Repositories.Interfaces;
+using DbModels.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DbModels.Data.Repositories;

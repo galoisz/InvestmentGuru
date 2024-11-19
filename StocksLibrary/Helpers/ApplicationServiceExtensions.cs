@@ -1,5 +1,6 @@
 ﻿using DbModels;
 using DbModels.Data.Repositories;
+using DbModels.Data.Repositories.Interfaces;
 using DbModels.Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

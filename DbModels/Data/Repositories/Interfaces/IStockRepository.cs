@@ -1,6 +1,8 @@
 ﻿
 using DbModels.Entities;
 
+namespace DbModels.Data.Repositories.Interfaces;
+
 public interface IStockRepository
 {
     Task<Stock?> GetStockBySymbolAsync(string symbol);
