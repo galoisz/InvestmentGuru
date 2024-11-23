@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -10,11 +11,11 @@ namespace DbModels.Entities;
 
 public class Stock
 {
-    [Key] // Marks as Primary Key
+    [Key]
     public Guid Id { get; set; }
 
-    [Required] // Makes the column NOT NULL
-    [MaxLength(10)] // Sets a maximum length constraint
+    [Required]
+    [MaxLength(10)] 
     public string Symbol { get; set; } = string.Empty;
 
     [Required]
@@ -24,6 +25,5 @@ public class Stock
     public DateTime? MinPriceDate { get; set; }
     public DateTime? MaxPriceDate { get; set; }
 
-    // Navigation property
     public ICollection<Price> Prices { get; set; } = new List<Price>();
 }

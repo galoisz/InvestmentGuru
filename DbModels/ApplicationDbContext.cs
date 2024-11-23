@@ -13,9 +13,13 @@ public class ApplicationDbContext : DbContext
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    //protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //{
-    //    modelBuilder.Entity<Stock>().ToTable("stocks");
-    //    modelBuilder.Entity<Stock>().ToTable("stocks");
-    //}
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Stock>()
+            .HasIndex(s => s.Name)
+            .IsUnique(); // Define the unique index
+    }
+
 }
