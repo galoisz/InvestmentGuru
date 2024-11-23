@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using StockLibrary.CQRS.Commands;
 using StockLibrary.CQRS.Queries;
 using StockLibrary.Models;
+using StocksLibrary.Stocks;
 
 namespace WebApi.Controllers;
 

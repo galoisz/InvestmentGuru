@@ -5,8 +5,8 @@ using MediatR;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using StockLibrary.CQRS.Commands;
 using StockLibrary.Models;
+using StocksLibrary.Stocks;
 using System.Text;
 
 namespace StocksDataConsumer.Services;
@@ -57,7 +57,7 @@ public class StocksDataConsumerService : IStocksDataConsumerService
 
                 var stockEntity = JsonConvert.DeserializeObject<DataConsumer.Models.StockEntry>(message);
 
-                var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(1980, 01, 1), DateTime.Now);
+                    var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(1980, 01, 1), DateTime.Now);
                 var command = new CreateStockCommand
                 {
                     Symbol = stockEntity.Symbol,

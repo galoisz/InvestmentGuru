@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using StockLibrary.CQRS.Commands;
 using StockLibrary.CQRS.Queries;
+using StocksLibrary.Stocks;
 
 namespace StocksLibrary.Helpers;
 
@@ -21,6 +21,7 @@ public static class ApplicationServiceExtensions
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(typeof(CreateStockCommandHandler).Assembly);
+            config.RegisterServicesFromAssembly(typeof(EditStockCommandHandler).Assembly);
             config.RegisterServicesFromAssembly(typeof(GetStockQueryHandler).Assembly);
         });
     }
