@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using StockLibrary.CQRS.Queries;
 using StockLibrary.Models;
 using StocksLibrary.Stocks;
+using static StocksLibrary.Stocks.List;
 
 namespace WebApi.Controllers;
 
@@ -20,7 +20,7 @@ public class StockController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateStock([FromBody] StockEntry stockEntry)
     {
-        var command = new CreateStockCommand
+        var command = new Command
         {
             Symbol = stockEntry.Symbol,
             Prices = stockEntry.Prices
@@ -33,7 +33,7 @@ public class StockController : ControllerBase
     [HttpGet("{symbol}")]
     public async Task<IActionResult> GetStock(string symbol)
     {
-        var query = new GetStockQuery { Symbol = symbol };
+        var query = new Query { Symbol = symbol };
         var stock = await _mediator.Send(query);
         if (stock == null) return NotFound();
         return Ok(stock);

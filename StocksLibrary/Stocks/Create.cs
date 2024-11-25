@@ -11,22 +11,22 @@ using System.Threading.Tasks;
 
 namespace StocksLibrary.Stocks;
 
-public class CreateStockCommand : IRequest<Unit>
+public class Command : IRequest<Unit>
 {
     public string Symbol { get; set; }
     public List<PriceEntry> Prices { get; set; }
 }
 
-public class CreateStockCommandHandler : IRequestHandler<CreateStockCommand, Unit>
+public class Handler : IRequestHandler<Command, Unit>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateStockCommandHandler(IUnitOfWork unitOfWork)
+    public Handler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Unit> Handle(CreateStockCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
     {
         // Serialize the Prices list into a JSON string
         var serializedPrices = JsonConvert.SerializeObject(request.Prices);

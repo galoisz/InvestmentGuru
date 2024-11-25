@@ -58,7 +58,7 @@ public class StocksDataConsumerService : IStocksDataConsumerService
                 var stockEntity = JsonConvert.DeserializeObject<DataConsumer.Models.StockEntry>(message);
 
                     var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(1980, 01, 1), DateTime.Now);
-                var command = new CreateStockCommand
+                var command = new Command
                 {
                     Symbol = stockEntity.Symbol,
                     Prices = prices.Select(x => new PriceEntry { Open = Convert.ToDecimal(x.Open), High = Convert.ToDecimal(x.High), Close = Convert.ToDecimal(x.Close), Low = Convert.ToDecimal(x.Low), Date = x.Date.ToString("yyyy-MM-dd") , Volume = Convert.ToInt64(x.Volume) }).ToList()
