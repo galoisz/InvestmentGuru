@@ -1,8 +1,8 @@
-﻿using DbModels.Data.UnitOfWork;
+﻿using Application.Models;
+using DbModels.Data.UnitOfWork;
 using MediatR;
-using StockLibrary.Models;
 
-namespace StocksLibrary.Stocks;
+namespace Application.Stocks;
 
 public class List
 {

@@ -1,4 +1,4 @@
-﻿namespace StockLibrary.Models;
+﻿namespace Application.Models;
 
 public class PriceEntry
 {

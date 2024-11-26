@@ -1,13 +1,12 @@
-﻿using DataConsumer.Models;
-using DataConsumer.Services.StockDataConsumer;
+﻿using DataConsumer.Services.StockDataConsumer;
 using DataConsumer.Services.StockPrices;
 using MediatR;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using StockLibrary.Models;
-using StocksLibrary.Stocks;
+using Application.Stocks;
 using System.Text;
+using Application.Models;
 
 namespace StocksDataConsumer.Services;
 

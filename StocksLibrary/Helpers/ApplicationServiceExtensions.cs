@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using StocksLibrary.Stocks;
+using Application.Stocks;
 
-namespace StocksLibrary.Helpers;
+namespace Application.Helpers;
 
 public static class ApplicationServiceExtensions
 {
@@ -21,7 +21,7 @@ public static class ApplicationServiceExtensions
         {
             config.RegisterServicesFromAssembly(typeof(Handler).Assembly);
             config.RegisterServicesFromAssembly(typeof(EditStockCommandHandler).Assembly);
-            config.RegisterServicesFromAssembly(typeof(StocksLibrary.Stocks.List.Handler).Assembly);
+            config.RegisterServicesFromAssembly(typeof(Application.Stocks.List.Handler).Assembly);
         });
     }
 }

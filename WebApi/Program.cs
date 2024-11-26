@@ -1,4 +1,4 @@
-using StocksLibrary.Helpers;
+using Application.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 

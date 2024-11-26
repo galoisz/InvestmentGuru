@@ -23,7 +23,7 @@
 
 
 	<ItemGroup>
-	  <ProjectReference Include="..\StocksLibrary\StocksLibrary.csproj" />
+	  <ProjectReference Include="..\StocksLibrary\Application.csproj" />
 	</ItemGroup>
 
 

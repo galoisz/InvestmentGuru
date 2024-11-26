@@ -1,15 +1,10 @@
-﻿using DbModels.Data.UnitOfWork;
+﻿using Application.Models;
+using DbModels.Data.UnitOfWork;
 using DbModels.Entities;
 using MediatR;
 using Newtonsoft.Json;
-using StockLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace StocksLibrary.Stocks;
+namespace Application.Stocks;
 
 public class Command : IRequest<Unit>
 {

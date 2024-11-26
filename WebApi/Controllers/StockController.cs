@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using StockLibrary.Models;
-using StocksLibrary.Stocks;
-using static StocksLibrary.Stocks.List;
+using Application.Stocks;
+using static Application.Stocks.List;
+using Application.Models;
 
 namespace WebApi.Controllers;
 

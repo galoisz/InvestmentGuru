@@ -4,8 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using StocksDataConsumer.Services;
-using StocksLibrary.Helpers;
-
+using Application.Helpers;
+    
 public class Program
 {
 
