@@ -1,7 +1,7 @@
-﻿using DbModels;
-using DbModels.Data.Repositories;
-using DbModels.Data.Repositories.Interfaces;
-using DbModels.Data.UnitOfWork;
+﻿using Persistence;
+using Persistence.Data.Repositories;
+using Persistence.Data.Repositories.Interfaces;
+using Persistence.Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

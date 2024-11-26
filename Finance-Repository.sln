@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{47C760F0-BFCA-4C6B-AF85-4F13A6678A6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbModels", "DbModels\DbModels.csproj", "{1A619803-CAB9-4BB2-8DF9-7A3542F00B87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "DbModels\Persistence.csproj", "{1A619803-CAB9-4BB2-8DF9-7A3542F00B87}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataConsumer", "StocksDataConsumer\DataConsumer.csproj", "{99DD316D-3986-4645-A554-1A7BF3AC151D}"
 EndProject

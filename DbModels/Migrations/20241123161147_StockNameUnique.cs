@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DbModels.Migrations
+namespace Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class StockNameUnique : Migration

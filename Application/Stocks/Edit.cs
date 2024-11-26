@@ -1,6 +1,6 @@
 ﻿using Application.Models;
-using DbModels.Data.UnitOfWork;
-using DbModels.Entities;
+using Persistence.Data.UnitOfWork;
+using Persistence.Entities;
 using MediatR;
 using Newtonsoft.Json;
 

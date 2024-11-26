@@ -1,7 +1,7 @@
 ﻿
-using DbModels.Entities;
+using Persistence.Entities;
 
-namespace DbModels.Data.Repositories.Interfaces;
+namespace Persistence.Data.Repositories.Interfaces;
 
 public interface IStockRepository
 {

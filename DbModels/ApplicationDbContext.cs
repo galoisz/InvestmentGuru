@@ -1,7 +1,7 @@
-﻿using DbModels.Entities;
+﻿using Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DbModels;
+namespace Persistence;
 
 public class ApplicationDbContext : DbContext
 {

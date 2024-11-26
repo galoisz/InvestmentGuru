@@ -1,8 +1,8 @@
-﻿using DbModels.Data.Repositories.Interfaces;
-using DbModels.Entities;
+﻿using Persistence.Data.Repositories.Interfaces;
+using Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DbModels.Data.Repositories;
+namespace Persistence.Data.Repositories;
 
 public class ProtfolioPeriodRepository : IProtfolioPeriodRepository
 {

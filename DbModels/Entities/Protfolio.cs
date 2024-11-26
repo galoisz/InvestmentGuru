@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace DbModels.Entities;
+namespace Persistence.Entities;
 
 public class Protfolio
 {

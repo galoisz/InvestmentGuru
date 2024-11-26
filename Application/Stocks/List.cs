@@ -1,5 +1,5 @@
 ﻿using Application.Models;
-using DbModels.Data.UnitOfWork;
+using Persistence.Data.UnitOfWork;
 using MediatR;
 
 namespace Application.Stocks;

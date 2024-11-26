@@ -1,6 +1,6 @@
-﻿using DbModels.Data.Repositories.Interfaces;
+﻿using Persistence.Data.Repositories.Interfaces;
 
-namespace DbModels.Data.UnitOfWork;
+namespace Persistence.Data.UnitOfWork;
 public interface IUnitOfWork : IDisposable
 {
     IStockRepository Stocks { get; }
