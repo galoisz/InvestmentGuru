@@ -12,12 +12,14 @@ public class UnitOfWork : IUnitOfWork
     public IProtfolioRepository ProtfolioRepository { get; }
     public IProtfolioStockRepository ProtfolioStockRepository { get; }
 
-
-    public UnitOfWork(ApplicationDbContext dbContext, IStockRepository stockRepository, IPriceRepository priceRepository)
+    public UnitOfWork(ApplicationDbContext dbContext, IStockRepository stocks, IPriceRepository prices, IProtfolioPeriodRepository protfolioPeriodRepository, IProtfolioRepository protfolioRepository, IProtfolioStockRepository protfolioStockRepository)
     {
         _dbContext = dbContext;
-        Stocks = stockRepository;
-        Prices = priceRepository;
+        Stocks = stocks;
+        Prices = prices;
+        ProtfolioPeriodRepository = protfolioPeriodRepository;
+        ProtfolioRepository = protfolioRepository;
+        ProtfolioStockRepository = protfolioStockRepository;
     }
 
     public async Task CompleteAsync()
