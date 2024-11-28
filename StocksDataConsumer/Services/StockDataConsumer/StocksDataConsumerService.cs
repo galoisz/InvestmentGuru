@@ -6,7 +6,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Application.Stocks;
 using System.Text;
-using Application.Models;
+using Application.Dtos;
 
 namespace StocksDataConsumer.Services;
 
@@ -60,7 +60,7 @@ public class StocksDataConsumerService : IStocksDataConsumerService
                 var command = new Command
                 {
                     Symbol = stockEntity.Symbol,
-                    Prices = prices.Select(x => new PriceEntry { Open = Convert.ToDecimal(x.Open), High = Convert.ToDecimal(x.High), Close = Convert.ToDecimal(x.Close), Low = Convert.ToDecimal(x.Low), Date = x.Date.ToString("yyyy-MM-dd") , Volume = Convert.ToInt64(x.Volume) }).ToList()
+                    Prices = prices.Select(x => new PriceDto { Open = Convert.ToDecimal(x.Open), High = Convert.ToDecimal(x.High), Close = Convert.ToDecimal(x.Close), Low = Convert.ToDecimal(x.Low), Date = x.Date.ToString("yyyy-MM-dd") , Volume = Convert.ToInt64(x.Volume) }).ToList()
                 };
 
                 await _mediator.Send(command);

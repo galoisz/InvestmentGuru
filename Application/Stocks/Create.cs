@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.Dtos;
 using Persistence.Data.UnitOfWork;
 using Persistence.Entities;
 using MediatR;
@@ -9,7 +9,7 @@ namespace Application.Stocks;
 public class Command : IRequest<Unit>
 {
     public string Symbol { get; set; }
-    public List<PriceEntry> Prices { get; set; }
+    public List<PriceDto> Prices { get; set; }
 }
 
 public class Handler : IRequestHandler<Command, Unit>

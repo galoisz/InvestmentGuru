@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Application.Stocks;
 using static Application.Stocks.List;
-using Application.Models;
+using Application.Dtos;
 
 namespace WebApi.Controllers;
 
@@ -18,7 +18,7 @@ public class StockController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateStock([FromBody] StockEntry stockEntry)
+    public async Task<IActionResult> CreateStock([FromBody] StockDto stockEntry)
     {
         var command = new Command
         {

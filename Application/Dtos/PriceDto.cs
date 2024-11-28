@@ -1,6 +1,6 @@
-﻿namespace Application.Models;
+﻿namespace Application.Dtos;
 
-public class PriceEntry
+public class PriceDto
 {
     public decimal Open { get; set; }
     public decimal High { get; set; }
