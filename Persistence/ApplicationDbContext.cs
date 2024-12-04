@@ -10,6 +10,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Protfolio> Protfolios { get; set; }
     public DbSet<ProtfolioPeriod> ProtfolioPeriods { get; set; }
     public DbSet<ProtfolioStock> ProtfolioStocks { get; set; }
+    public DbSet<ProtfolioPeriodGraph> ProtfolioPeriodGraphs { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
