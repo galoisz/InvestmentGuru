@@ -42,7 +42,7 @@ public class StocksDataConsumerService : IStocksDataConsumerService
                               autoDelete: false,
                               arguments: null);
 
-        await channel.QueueBindAsync (queue: queueName, exchange: "stock_exchange", routingKey: queueName);
+        await channel.QueueBindAsync(queue: queueName, exchange: "stock_exchange", routingKey: queueName);
 
         var consumer = new AsyncEventingBasicConsumer(channel);
         consumer.ReceivedAsync += async (model, ea) =>
@@ -56,11 +56,11 @@ public class StocksDataConsumerService : IStocksDataConsumerService
 
                 var stockEntity = JsonConvert.DeserializeObject<DataConsumer.Models.StockEntry>(message);
 
-                    var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(1980, 01, 1), DateTime.Now);
-                var command = new Command
+                var prices = await _stockPriceService.GetStockPrices(stockEntity.Symbol, new DateTime(1980, 01, 1), DateTime.Now);
+                var command = new StockUpsertCommand
                 {
                     Symbol = stockEntity.Symbol,
-                    Prices = prices.Select(x => new PriceDto { Open = Convert.ToDecimal(x.Open), High = Convert.ToDecimal(x.High), Close = Convert.ToDecimal(x.Close), Low = Convert.ToDecimal(x.Low), Date = x.Date.ToString("yyyy-MM-dd") , Volume = Convert.ToInt64(x.Volume) }).ToList()
+                    Prices = prices.Select(x => new PriceDto { Open = Convert.ToDecimal(x.Open), High = Convert.ToDecimal(x.High), Close = Convert.ToDecimal(x.Close), Low = Convert.ToDecimal(x.Low), Date = x.Date.ToString("yyyy-MM-dd"), Volume = Convert.ToInt64(x.Volume) }).ToList()
                 };
 
                 await _mediator.Send(command);
@@ -74,7 +74,7 @@ public class StocksDataConsumerService : IStocksDataConsumerService
             catch (Exception ex)
             {
 
-                Console.WriteLine(ex); 
+                Console.WriteLine(ex);
             }
         };
 

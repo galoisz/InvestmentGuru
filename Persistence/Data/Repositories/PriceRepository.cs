@@ -23,11 +23,10 @@ public class PriceRepository : IPriceRepository
         return await _dbContext.Set<Price>().FindAsync(id);
     }
 
-    public async Task<IEnumerable<Price>> GetByStockIdAsync(Guid stockId)
+    public async Task<Price> GetByStockIdAsync(Guid stockId)
     {
         return await _dbContext.Set<Price>()
-            .Where(p => p.StockId == stockId)
-            .ToListAsync();
+            .FirstOrDefaultAsync(p => p.StockId == stockId);
     }
 
     public async Task UpdateAsync(Price price)

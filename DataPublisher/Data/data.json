@@ -6,6 +6,14 @@
   {
     "Symbol": "MSFT",
     "Name": "Microsoft Corporation Common Stock"
+  },
+  {
+    "Symbol": "NVDA",
+    "Name": "NVIDIA Corporation Common Stock"
+  },
+  {
+    "Symbol": "TSLA",
+    "Name": "Tesla Inc. Common Stock"
   }
 
 ]

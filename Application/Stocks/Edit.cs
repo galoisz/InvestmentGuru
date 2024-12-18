@@ -50,20 +50,13 @@ public class EditStockCommandHandler : IRequestHandler<EditStockCommand, Unit>
         await _unitOfWork.Stocks.UpdateStockAsync(existingStock);
 
         // Get existing prices for the stock
-        var existingPrices = await _unitOfWork.Prices.GetByStockIdAsync(existingStock.Id);
+        var existingPrice = await _unitOfWork.Prices.GetByStockIdAsync(existingStock.Id);
 
-        if (existingPrices.Any())
+        if (existingPrice != null)
         {
             // Update the first existing price with the serialized Prices
-            var existingPrice = existingPrices.First();
             existingPrice.Value = serializedPrices;
             await _unitOfWork.Prices.UpdateAsync(existingPrice);
-
-            // Remove any extra prices to ensure there's only one price entry
-            foreach (var extraPrice in existingPrices.Skip(1))
-            {
-                await _unitOfWork.Prices.DeleteAsync(extraPrice.Id);
-            }
         }
         else
         {

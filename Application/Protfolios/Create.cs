@@ -45,7 +45,7 @@ public class Handler : IRequestHandler<Command, Unit>
         {
             var newPeriod = _mapper.Map<ProtfolioPeriod>(periodDto);
             newPeriod.Id = Guid.NewGuid();
-            newPeriod.ProtfolioId = newProtfolio.Id; // Assign foreign key
+            newPeriod.ProtfolioId = newProtfolio.Id; 
             await _unitOfWork.ProtfolioPeriodRepository.AddAsync(newPeriod);
         }
 
