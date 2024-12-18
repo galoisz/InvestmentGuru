@@ -25,8 +25,7 @@ public class PriceRepository : IPriceRepository
 
     public async Task<Price> GetByStockIdAsync(Guid stockId)
     {
-        return await _dbContext.Set<Price>()
-            .FirstOrDefaultAsync(p => p.StockId == stockId);
+        return await _dbContext.Prices.AsNoTracking().FirstOrDefaultAsync(p => p.StockId == stockId);
     }
 
     public async Task UpdateAsync(Price price)

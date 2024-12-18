@@ -8,5 +8,6 @@ public interface IUnitOfWork : IDisposable
     IProtfolioPeriodRepository ProtfolioPeriodRepository { get; }
     IProtfolioRepository ProtfolioRepository { get; }
     IProtfolioStockRepository ProtfolioStockRepository { get; }
+    IProtfolioPeriodGraphRepository ProtfolioPeriodGraphRepository { get; }
     Task CompleteAsync();
 }

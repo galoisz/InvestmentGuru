@@ -1,6 +1,8 @@
 ﻿using Application.Dtos;
+using Application.Services.ProtfolioPeriodCalc;
 using AutoMapper;
 using MediatR;
+using Newtonsoft.Json;
 using Persistence.Data.Repositories.Interfaces;
 using Persistence.Data.UnitOfWork;
 using Persistence.Entities;
@@ -16,12 +18,15 @@ public class Handler : IRequestHandler<Command, Unit>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IProtfolioPeriodCalcService _protfolioPeriodCalcService;
 
-    public Handler(IUnitOfWork unitOfWork, IMapper mapper)
+    public Handler(IUnitOfWork unitOfWork, IMapper mapper, IProtfolioPeriodCalcService protfolioPeriodCalcService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _protfolioPeriodCalcService = protfolioPeriodCalcService;
     }
+ 
 
     public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
     {
@@ -45,8 +50,15 @@ public class Handler : IRequestHandler<Command, Unit>
         {
             var newPeriod = _mapper.Map<ProtfolioPeriod>(periodDto);
             newPeriod.Id = Guid.NewGuid();
-            newPeriod.ProtfolioId = newProtfolio.Id; 
+            newPeriod.ProtfolioId = newProtfolio.Id;
             await _unitOfWork.ProtfolioPeriodRepository.AddAsync(newPeriod);
+
+
+
+            var periodicalValues = await _protfolioPeriodCalcService.Calculate(newPeriod, protfolioDto.Stocks, protfolioDto.Budget);
+            var newProtfolioPeriodGraph = new ProtfolioPeriodGraph { Id = Guid.NewGuid(), ProtfolioPeriodId = newPeriod.Id, Graphdata = JsonConvert.SerializeObject(periodicalValues) };
+            await _unitOfWork.ProtfolioPeriodGraphRepository.AddAsync(newProtfolioPeriodGraph);
+
         }
 
         // Commit the transaction

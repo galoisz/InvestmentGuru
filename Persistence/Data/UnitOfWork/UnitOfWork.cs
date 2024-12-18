@@ -11,8 +11,11 @@ public class UnitOfWork : IUnitOfWork
     public IProtfolioPeriodRepository ProtfolioPeriodRepository { get; }
     public IProtfolioRepository ProtfolioRepository { get; }
     public IProtfolioStockRepository ProtfolioStockRepository { get; }
+    public IProtfolioPeriodGraphRepository ProtfolioPeriodGraphRepository { get; }
 
-    public UnitOfWork(ApplicationDbContext dbContext, IStockRepository stocks, IPriceRepository prices, IProtfolioPeriodRepository protfolioPeriodRepository, IProtfolioRepository protfolioRepository, IProtfolioStockRepository protfolioStockRepository)
+
+    
+    public UnitOfWork(ApplicationDbContext dbContext, IStockRepository stocks, IPriceRepository prices, IProtfolioPeriodRepository protfolioPeriodRepository, IProtfolioRepository protfolioRepository, IProtfolioStockRepository protfolioStockRepository, IProtfolioPeriodGraphRepository protfolioPeriodGraphRepository)
     {
         _dbContext = dbContext;
         Stocks = stocks;
@@ -20,6 +23,7 @@ public class UnitOfWork : IUnitOfWork
         ProtfolioPeriodRepository = protfolioPeriodRepository;
         ProtfolioRepository = protfolioRepository;
         ProtfolioStockRepository = protfolioStockRepository;
+        ProtfolioPeriodGraphRepository = protfolioPeriodGraphRepository;
     }
 
     public async Task CompleteAsync()

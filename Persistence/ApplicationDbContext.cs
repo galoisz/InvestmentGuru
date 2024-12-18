@@ -21,6 +21,11 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Stock>()
             .HasIndex(s => s.Name)
             .IsUnique(); // Define the unique index
+        
+        modelBuilder.Entity<Price>()
+                  .HasIndex(p => p.StockId)
+                  .IsUnique();
+
     }
 
 }

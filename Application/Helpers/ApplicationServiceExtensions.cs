@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Application.Stocks;
 using Application.Core;
+using Application.Services.ProtfolioPeriodCalc;
 
 namespace Application.Helpers;
 
@@ -20,6 +21,8 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IProtfolioRepository, ProtfolioRepository>();
         services.AddScoped<IProtfolioStockRepository, ProtfolioStockRepository>();
         services.AddScoped<IProtfolioPeriodRepository, ProtfolioPeriodRepository>();
+        services.AddScoped<IProtfolioPeriodGraphRepository, ProtfolioPeriodGraphRepository>();
+        services.AddScoped<IProtfolioPeriodCalcService, ProtfolioPeriodCalcService>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddMediatR(config =>
