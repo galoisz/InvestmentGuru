@@ -12,8 +12,111 @@
     "Name": "NVIDIA Corporation Common Stock"
   },
   {
+    "Symbol": "AMZN",
+    "Name": "Amazon.com, Inc. Common Stock"
+  },
+  {
+    "Symbol": "GOOGL",
+    "Name": "Alphabet Inc. (Class A) Common Stock"
+  },
+  {
+    "Symbol": "GOOG",
+    "Name": "Alphabet Inc. (Class C) Common Stock"
+  },
+  {
+    "Symbol": "META",
+    "Name": "Meta Platforms, Inc. Common Stock"
+  },
+  {
     "Symbol": "TSLA",
     "Name": "Tesla Inc. Common Stock"
+  },
+  {
+    "Symbol": "AVGO",
+    "Name": "Broadcom Inc. Common Stock"
+  },
+  {
+    "Symbol": "COST",
+    "Name": "Costco Wholesale Corp. Common Stock"
+  },
+  {
+    "Symbol": "NFLX",
+    "Name": "Netflix, Inc. Common Stock"
+  },
+  {
+    "Symbol": "ASML",
+    "Name": "ASML Holding N.V. Common Stock"
+  },
+  {
+    "Symbol": "TMUS",
+    "Name": "T-Mobile US, Inc. Common Stock"
+  },
+  {
+    "Symbol": "CSCO",
+    "Name": "Cisco Systems, Inc. Common Stock"
+  },
+  {
+    "Symbol": "PEP",
+    "Name": "PepsiCo, Inc. Common Stock"
+  },
+  {
+    "Symbol": "AZN",
+    "Name": "AstraZeneca PLC Common Stock"
+  },
+  {
+    "Symbol": "LIN",
+    "Name": "Linde plc Common Stock"
+  },
+  {
+    "Symbol": "ADBE",
+    "Name": "Adobe Inc. Common Stock"
+  },
+  {
+    "Symbol": "AMD",
+    "Name": "Advanced Micro Devices Common Stock"
+  },
+  {
+    "Symbol": "ABNB",
+    "Name": "Airbnb, Inc. Common Stock"
+  },
+  {
+    "Symbol": "AEP",
+    "Name": "American Electric Power Common Stock"
+  },
+  {
+    "Symbol": "AMGN",
+    "Name": "Amgen Inc. Common Stock"
+  },
+  {
+    "Symbol": "ADI",
+    "Name": "Analog Devices, Inc. Common Stock"
+  },
+  {
+    "Symbol": "ANSS",
+    "Name": "ANSYS, Inc. Common Stock"
+  },
+  {
+    "Symbol": "AMAT",
+    "Name": "Applied Materials, Inc. Common Stock"
+  },
+  {
+    "Symbol": "APP",
+    "Name": "AppLovin Corporation Common Stock"
+  },
+  {
+    "Symbol": "ARM",
+    "Name": "Arm Holdings plc Common Stock"
+  },
+  {
+    "Symbol": "TEAM",
+    "Name": "Atlassian Corporation Common Stock"
+  },
+  {
+    "Symbol": "ADSK",
+    "Name": "Autodesk, Inc. Common Stock"
+  },
+  {
+    "Symbol": "ADP",
+    "Name": "Automatic Data Processing Common Stock"
   }
-
 ]

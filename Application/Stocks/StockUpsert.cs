@@ -35,7 +35,7 @@ public class StockUpsertHandler : IRequestHandler<StockUpsertCommand, Unit>
             : null;
 
         // Check if the stock exists
-        var existingStock = await _unitOfWork.Stocks.GetStockBySymbolAsync(request.Symbol);
+        var existingStock = await _unitOfWork.StocksRepository.GetStockBySymbolAsync(request.Symbol);
 
         if (existingStock == null)
         {
@@ -48,7 +48,7 @@ public class StockUpsertHandler : IRequestHandler<StockUpsertCommand, Unit>
                 MinPriceDate = minPriceDate,
                 MaxPriceDate = maxPriceDate
             };
-            await _unitOfWork.Stocks.AddStockAsync(newStock);
+            await _unitOfWork.StocksRepository.AddStockAsync(newStock);
 
             // Create a price entry for the new stock
             var newPrice = new Price
@@ -57,7 +57,7 @@ public class StockUpsertHandler : IRequestHandler<StockUpsertCommand, Unit>
                 StockId = newStock.Id,
                 Value = serializedPrices
             };
-            await _unitOfWork.Prices.AddAsync(newPrice);
+            await _unitOfWork.PricesRepository.AddAsync(newPrice);
         }
         else
         {
@@ -65,15 +65,15 @@ public class StockUpsertHandler : IRequestHandler<StockUpsertCommand, Unit>
             existingStock.Name = $"{request.Symbol} Stock (Updated)";
             existingStock.MinPriceDate = minPriceDate;
             existingStock.MaxPriceDate = maxPriceDate;
-            await _unitOfWork.Stocks.UpdateStockAsync(existingStock);
+            await _unitOfWork.StocksRepository.UpdateStockAsync(existingStock);
 
             // Get existing prices for the stock
-            var existingPrice = await _unitOfWork.Prices.GetByStockIdAsync(existingStock.Id);
+            var existingPrice = await _unitOfWork.PricesRepository.GetByStockIdAsync(existingStock.Id);
 
             if (existingPrice != null)
             {
                 existingPrice.Value = serializedPrices;
-                await _unitOfWork.Prices.UpdateAsync(existingPrice);
+                await _unitOfWork.PricesRepository.UpdateAsync(existingPrice);
             }
             else
             {
@@ -84,7 +84,7 @@ public class StockUpsertHandler : IRequestHandler<StockUpsertCommand, Unit>
                     StockId = existingStock.Id,
                     Value = serializedPrices
                 };
-                await _unitOfWork.Prices.AddAsync(newPrice);
+                await _unitOfWork.PricesRepository.AddAsync(newPrice);
             }
         }
 

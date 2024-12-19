@@ -3,11 +3,13 @@
 namespace Persistence.Data.UnitOfWork;
 public interface IUnitOfWork : IDisposable
 {
-    IStockRepository Stocks { get; }
-    IPriceRepository Prices { get; }
+    IStockRepository StocksRepository { get; }
+    IPriceRepository PricesRepository { get; }
+    IPriceRepository GetneratePricesRepository();
     IProtfolioPeriodRepository ProtfolioPeriodRepository { get; }
     IProtfolioRepository ProtfolioRepository { get; }
     IProtfolioStockRepository ProtfolioStockRepository { get; }
     IProtfolioPeriodGraphRepository ProtfolioPeriodGraphRepository { get; }
+
     Task CompleteAsync();
 }

@@ -25,7 +25,7 @@ public class EditStockCommandHandler : IRequestHandler<EditStockCommand, Unit>
     public async Task<Unit> Handle(EditStockCommand request, CancellationToken cancellationToken)
     {
         // Check if the stock already exists
-        var existingStock = await _unitOfWork.Stocks.GetStockBySymbolAsync(request.Symbol);
+        var existingStock = await _unitOfWork.StocksRepository.GetStockBySymbolAsync(request.Symbol);
 
         if (existingStock == null)
         {
@@ -47,16 +47,16 @@ public class EditStockCommandHandler : IRequestHandler<EditStockCommand, Unit>
         existingStock.Name = $"{request.Symbol} Stock (Updated)";
         existingStock.MinPriceDate = minPriceDate;
         existingStock.MaxPriceDate = maxPriceDate;
-        await _unitOfWork.Stocks.UpdateStockAsync(existingStock);
+        await _unitOfWork.StocksRepository.UpdateStockAsync(existingStock);
 
         // Get existing prices for the stock
-        var existingPrice = await _unitOfWork.Prices.GetByStockIdAsync(existingStock.Id);
+        var existingPrice = await _unitOfWork.PricesRepository.GetByStockIdAsync(existingStock.Id);
 
         if (existingPrice != null)
         {
             // Update the first existing price with the serialized Prices
             existingPrice.Value = serializedPrices;
-            await _unitOfWork.Prices.UpdateAsync(existingPrice);
+            await _unitOfWork.PricesRepository.UpdateAsync(existingPrice);
         }
         else
         {
@@ -67,7 +67,7 @@ public class EditStockCommandHandler : IRequestHandler<EditStockCommand, Unit>
                 StockId = existingStock.Id,
                 Value = serializedPrices
             };
-            await _unitOfWork.Prices.AddAsync(newPrice);
+            await _unitOfWork.PricesRepository.AddAsync(newPrice);
         }
 
         // Commit all changes

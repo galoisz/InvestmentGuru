@@ -23,13 +23,11 @@ public class List
     public class Handler : IRequestHandler<Query, ProtfolioDto>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IProtfolioRepository _protfolioRepository;
         private IMapper _mapper;
 
-        public Handler(IUnitOfWork unitOfWork, IProtfolioRepository protfolioRepository, IMapper mapper)
+        public Handler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
-            _protfolioRepository = protfolioRepository;
             _mapper = mapper;
         }
 

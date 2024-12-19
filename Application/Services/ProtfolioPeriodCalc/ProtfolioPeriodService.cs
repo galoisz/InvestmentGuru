@@ -52,7 +52,7 @@ public class ProtfolioPeriodCalcService : IProtfolioPeriodCalcService
 
     private async Task<List<PeriodicalValueDto>> CalculatePeriodicalValue(ProtfolioPeriod period, ProtfolioStockDto stock, decimal budget)
     {
-        Price price = await _unitOfWork.Prices.GetByStockIdAsync(stock.StockId);
+        Price price = await _unitOfWork.PricesRepository.GetByStockIdAsync(stock.StockId);
         var priceList = JsonConvert.DeserializeObject<List<PriceDto>>(price.Value);
 
 

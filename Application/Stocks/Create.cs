@@ -43,7 +43,7 @@ public class Handler : IRequestHandler<Command, Unit>
             MinPriceDate = minPriceDate,
             MaxPriceDate = maxPriceDate
         };
-        await _unitOfWork.Stocks.AddStockAsync(newStock);
+        await _unitOfWork.StocksRepository.AddStockAsync(newStock);
 
         // Create a single price entry with the serialized Prices
         var newPrice = new Price
@@ -52,7 +52,7 @@ public class Handler : IRequestHandler<Command, Unit>
             StockId = newStock.Id,
             Value = serializedPrices
         };
-        await _unitOfWork.Prices.AddAsync(newPrice);
+        await _unitOfWork.PricesRepository.AddAsync(newPrice);
 
         // Commit all changes
         await _unitOfWork.CompleteAsync();

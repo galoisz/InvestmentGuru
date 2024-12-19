@@ -24,7 +24,7 @@ public class List
 
         public async Task<StockDto> Handle(Query request, CancellationToken cancellationToken)
         {
-            var stock = await _unitOfWork.Stocks.GetStockBySymbolAsync(request.Symbol);
+            var stock = await _unitOfWork.StocksRepository.GetStockBySymbolAsync(request.Symbol);
 
             if (stock == null) return null;
 

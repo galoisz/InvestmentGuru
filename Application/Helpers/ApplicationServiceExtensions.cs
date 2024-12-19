@@ -15,13 +15,13 @@ namespace Application.Helpers;
 public static class ApplicationServiceExtensions
 {
     public static void AddServices(this IServiceCollection services, IConfiguration config) {
-        services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(config.GetConnectionString("StocksConnection")).LogTo(Console.WriteLine, LogLevel.Information));
-        services.AddScoped<IStockRepository, StockRepository>();
-        services.AddScoped<IPriceRepository, PriceRepository>();
-        services.AddScoped<IProtfolioRepository, ProtfolioRepository>();
-        services.AddScoped<IProtfolioStockRepository, ProtfolioStockRepository>();
-        services.AddScoped<IProtfolioPeriodRepository, ProtfolioPeriodRepository>();
-        services.AddScoped<IProtfolioPeriodGraphRepository, ProtfolioPeriodGraphRepository>();
+        services.AddDbContextFactory<ApplicationDbContext>(options => options.UseNpgsql(config.GetConnectionString("StocksConnection")).LogTo(Console.WriteLine, LogLevel.Information));
+        //services.AddScoped<IStockRepository, StockRepository>();
+        //services.AddScoped<IPriceRepository, PriceRepository>();
+        //services.AddScoped<IProtfolioRepository, ProtfolioRepository>();
+        //services.AddScoped<IProtfolioStockRepository, ProtfolioStockRepository>();
+        //services.AddScoped<IProtfolioPeriodRepository, ProtfolioPeriodRepository>();
+        //services.AddScoped<IProtfolioPeriodGraphRepository, ProtfolioPeriodGraphRepository>();
         services.AddScoped<IProtfolioPeriodCalcService, ProtfolioPeriodCalcService>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddAutoMapper(typeof(MappingProfile));
