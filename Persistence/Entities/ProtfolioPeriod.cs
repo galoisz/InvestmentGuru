@@ -18,6 +18,8 @@ public class ProtfolioPeriod
     [Column(TypeName = "date")]
     public DateTime ToDate { get; set; }
 
+    public decimal? FinalBudget { get; set; }
+
     // Navigation property
     public Protfolio Protfolio { get; set; }
 }

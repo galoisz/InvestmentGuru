@@ -51,13 +51,13 @@ public class Handler : IRequestHandler<Command, Unit>
             var newPeriod = _mapper.Map<ProtfolioPeriod>(periodDto);
             newPeriod.Id = Guid.NewGuid();
             newPeriod.ProtfolioId = newProtfolio.Id;
-            await _unitOfWork.ProtfolioPeriodRepository.AddAsync(newPeriod);
-
-
 
             var periodicalValues = await _protfolioPeriodCalcService.Calculate(newPeriod, protfolioDto.Stocks, protfolioDto.Budget);
             var newProtfolioPeriodGraph = new ProtfolioPeriodGraph { Id = Guid.NewGuid(), ProtfolioPeriodId = newPeriod.Id, Graphdata = JsonConvert.SerializeObject(periodicalValues) };
             await _unitOfWork.ProtfolioPeriodGraphRepository.AddAsync(newProtfolioPeriodGraph);
+
+            newPeriod.FinalBudget = periodicalValues.LastOrDefault()?.Value;
+            await _unitOfWork.ProtfolioPeriodRepository.AddAsync(newPeriod);
 
         }
 
