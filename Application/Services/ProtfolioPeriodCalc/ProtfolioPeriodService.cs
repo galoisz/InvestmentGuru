@@ -23,19 +23,12 @@ public class ProtfolioPeriodCalcService : IProtfolioPeriodCalcService
     public async Task<List<PeriodicalValueDto>> Calculate(ProtfolioPeriod period, List<ProtfolioStockDto> stocks, decimal budget)
     {
         //// Prepare tasks for calculating revenues in parallel
-        //var tasks = stocks.Select(stock => CalculatePeriodicalValue(period, stock, budget * stock.Ratio)).ToList();
+        var tasks = stocks.Select(stock => CalculatePeriodicalValue(period, stock, budget * stock.Ratio)).ToList();
 
-        //// Await all tasks and flatten the results into a single list
-        //var revenueResults = await Task.WhenAll(tasks);
-        //var revenues = revenueResults.SelectMany(revenue => revenue).ToList();
+        // Await all tasks and flatten the results into a single list
+        var revenueResults = await Task.WhenAll(tasks);
+        var revenues = revenueResults.SelectMany(revenue => revenue).ToList();
 
-
-        var revenues = new List<PeriodicalValueDto>();
-        foreach (var stock in stocks)
-        {
-            var revenue = await CalculatePeriodicalValue(period, stock, budget * stock.Ratio);
-            revenues.AddRange(revenue);
-        }
 
         // Get distinct revenue dates and calculate total values for each date
         var revenueDates = revenues.Select(x => x.Date).Distinct().OrderBy(x => x).ToList();
@@ -52,7 +45,7 @@ public class ProtfolioPeriodCalcService : IProtfolioPeriodCalcService
 
     private async Task<List<PeriodicalValueDto>> CalculatePeriodicalValue(ProtfolioPeriod period, ProtfolioStockDto stock, decimal budget)
     {
-        Price price = await _unitOfWork.PricesRepository.GetByStockIdAsync(stock.StockId);
+        Price price = await _unitOfWork.GetneratePricesRepository().GetByStockIdAsync(stock.StockId);
         var priceList = JsonConvert.DeserializeObject<List<PriceDto>>(price.Value);
 
 
